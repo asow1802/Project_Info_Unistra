@@ -1,0 +1,1 @@
+/usr/bin/c++ -std=c++11 -O3 -rdynamic CMakeFiles/test_segment.dir/test/test_segment.cpp.o -o test_segment  libProject_Unistra.a

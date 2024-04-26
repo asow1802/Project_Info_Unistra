@@ -1,0 +1,2 @@
+/usr/bin/ar qc libProject_Unistra.a CMakeFiles/Project_Unistra.dir/src/main.cpp.o CMakeFiles/Project_Unistra.dir/src/mdp.cpp.o CMakeFiles/Project_Unistra.dir/src/point.cpp.o CMakeFiles/Project_Unistra.dir/src/quadrangle.cpp.o CMakeFiles/Project_Unistra.dir/src/segment.cpp.o
+/usr/bin/ranlib libProject_Unistra.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmaillage.a CMakeFiles/maillage.dir/src/main.cpp.o CMakeFiles/maillage.dir/src/mdp.cpp.o CMakeFiles/maillage.dir/src/point.cpp.o CMakeFiles/maillage.dir/src/quadrangle.cpp.o CMakeFiles/maillage.dir/src/segment.cpp.o
+/usr/bin/ranlib libmaillage.a
