@@ -1,11 +1,11 @@
-#ifndef TRIANGLE_HPP
-#define TRIANGLE_HPP
+#ifndef MDP_HPP
+#define MDP_HPP
 
 #include <cmath>
 #include <initializer_list>
 #include <algorithm>
-#include "point.hpp"
-#include "segment.hpp"
+//#include "point.hpp"
+//#include "segment.hpp"
 
 template <class S, class A>  class  mdp 
 {
@@ -13,29 +13,43 @@ template <class S, class A>  class  mdp
       int ns, na;
       S *state;
       A *action;
+      S (*reset)(int , S *);
+      int (*possible_action)(S , A &);
+      void (*environnement)(S , A , double &, S &);
+      bool (*is_terminal)(S, int);
    public:
-      S *reset(int n, S *s){
-        return s[n];
+   //getter
+      int getNS(){
+        return ns;
       }
-      int *possible_action(S s, A const &a){
-        int n;
-        for (int i = 0; i < ns; i++)
-        {
-                if (state[i] == s)
-                {
-                        n = i;
-                } 
-        }
-        a  = new A[na - n];
-        return (na -a);
-        
+      int getNA(){
+        return na;
       }
+     A  getRESET(int x, S *s){
+        return reset(x,s);
+     }
+     S getSTATE(int p){
+       return state[p];
+     }
+     S getACTION(int p){
+       return action[p];
+     }
+   //setter
+      void setNS(int x){
+        this->ns = x;
+     }
+     void setNA(int x){
+        this->na = x;
+     }
+     void setSTATE(int p, S s){
+        this->state[p] = s;
+     }
+     void setACTION(int p, A a){
+        this->action[p] = a;
+     }
+     void setRESET(S (*res)(int, S *)){
+        reset = res;
+     }
 
-      void *environnement(S sta, A act, double &n, S &s){
-        return NULL;
-      }
-      bool *is_terminal(S s, int n){
-        return s[n+1] == NULL;
-      }
 };
 #endif
