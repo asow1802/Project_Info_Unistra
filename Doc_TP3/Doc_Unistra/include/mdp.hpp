@@ -25,31 +25,114 @@ template <class S, class A>  class  mdp
       int getNA(){
         return na;
       }
-     A  getRESET(int x, S *s){
-        return reset(x,s);
-     }
-     S getSTATE(int p){
-       return state[p];
-     }
-     S getACTION(int p){
-       return action[p];
-     }
+      S getSTATE(int p){
+         return state[p];
+      }
+      A getACTION(int p){
+         return action[p];
+      }
+      S  getRESET(int x, S *s){
+         return reset(x,s);
+      }
+      int getPOSSIBLE_ACTION(S s, A &a){
+         return possible_action(s, *a);
+      }
+      bool getIS_TERMINAL(S s, int n){
+         return is_terminal(s, n);
+      }
    //setter
       void setNS(int x){
-        this->ns = x;
-     }
-     void setNA(int x){
-        this->na = x;
-     }
-     void setSTATE(int p, S s){
-        this->state[p] = s;
-     }
-     void setACTION(int p, A a){
-        this->action[p] = a;
-     }
-     void setRESET(S (*res)(int, S *)){
-        reset = res;
-     }
-
+         this->ns = x;
+      }
+      void setNA(int x){
+         this->na = x;
+      }
+      void setSTATE(int p, S s){
+         this->state[p] = s;
+      }
+      void setACTION(int p, A a){
+         this->action[p] = a;
+      }
+      void setRESET(S (*res)(int, S *)){
+         reset = res;
+      }
+      void POOSIBLE_ACTION(int (*poss_act)(S, A&)){
+         possible_action = poss_act;
+      }
+      void setIS_TERMINAL(bool (*is_ter)(S, int)){
+         is_terminal = is_ter;
+      }
+   //Signatures des constructeurs
+         mdp();
+         mdp(const mdp &p);
+   //Destructeurs
+         ~mdp();
+   //Operateurs
+         mdp & operator = (const mdp & p);
+         //S operator [] ();
 };
+
+//Constructeurs
+      template <class S, class A> 
+      mdp <S, A>::mdp (){
+               ns = 0;
+               na = 0;
+               state = NULL;
+               action = NULL;
+               reset = NULL;
+               possible_action = NULL;
+               environnement = NULL;
+               is_terminal = NULL;
+            }
+      template <class S, class A> 
+      mdp <S, A>::mdp (const mdp <S, A> & p){
+               ns = p.ns;
+               na = p.na;
+               for (int i = 0; i < ns; i++)
+               {
+                  state[i] = p.state[i];
+               }
+               for (int j = 0; j < na; j++)
+               {
+                  action[j] = p.action[j];
+               }
+               reset = p.reset;
+               possible_action = p.possible_action;
+               environnement = p.environnement;
+               is_terminal = p.is_terminal;
+            }
+      //Destructeurs
+               template <class S, class A>
+               mdp <S, A>::~ mdp () 
+               {
+                     delete [] state;
+                     delete [] action;
+                     delete [] reset;
+                     delete [] possible_action;
+                     delete [] environnement;
+                     delete [] is_terminal;
+               }
+      //Surcharge
+               template<class S, class A> 
+               mdp <class S, class A> & mdp <S, A>::operator = (const mdp <S, A> & p) {
+                     if (&p != this)
+                     {
+                        this->ns = p.ns;
+                        this->na = p.na;
+                        for (int i = 0; i < ns; i++)
+                        {
+                           this->state = p.state;
+                           this->action = p.action;
+                           this->reset = p.reset;
+                           this->possible_action = p.possible_action;
+                           this->is_terminal = p.is_terminal;
+                        }
+                        
+                     }
+                     
+               }
+               /*template<class S, class A>
+               S mdp <S, A>::operator [] (){
+                  return this->state[this->ns];
+               }*/
 #endif
